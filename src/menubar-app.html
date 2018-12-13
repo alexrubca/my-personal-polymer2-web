@@ -1,0 +1,73 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+<dom-module id="menubar-app">
+  <template>
+    <style>
+      :host {
+        display: none;
+        height: 65px;
+        width: 100%;
+      }
+
+      menubar-app a {
+        padding: 15px 20px;
+        color: var(--primary-text-color);
+        text-decoration: none;
+      }
+
+      menubar-app a.iron-selected {
+        color: white;
+      }
+
+      menubar-app a[disabled] {
+        color: var(--google-grey-300);
+      }
+
+      @media only screen and (min-width: 641px) {
+        :host { display: inline-block; }
+      }
+    </style>
+
+    <div id="menubar" role="menubar">
+      <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+        <a id="home" name="home" href="/home" role="menuitem">Inicio</a>
+        <a id="contact" name="contact" href="/contact" role="menuitem">Contacto</a>
+      </iron-selector>
+    </div>
+
+  </template>
+
+  <script>
+    /**
+     * `menubar-app` We can find all options for navigate on the menu
+     *
+     * @summary Menu navigator
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class MenuBarApp extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'menubar-app';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            reflectToAttribute: true,
+          }
+        };
+      }
+    }
+
+    window.customElements.define(MenuBarApp.is, MenuBarApp);
+  </script>
+</dom-module>

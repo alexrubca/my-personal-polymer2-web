@@ -1,0 +1,125 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="title-app.html">
+<link rel="import" href="menubar-app.html">
+<link rel="import" href="home-app.html">
+<link rel="import" href="contact-app.html">
+
+<dom-module id="my-personal-web-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --primary-color: #0D47A1;
+        --secondary-color: #F52757;
+        --terciary-color: #2B8FE7;
+        --primary-text-color: #666;
+        --primary-bg-color: #FFF;
+        --secondary-bg-color: #66AEED;
+        --terciary-bg-color: #F97D9A;
+      }
+
+      app-drawer-layout:not([narrow]) [drawer-toggle] { display: none; }
+
+      app-toolbar { 
+        background-color: var(--secondary-bg-color);
+        border-bottom: 1px solid black;
+      }
+
+      paper-icon-button { color: var(--primary-color); }
+
+      @media only screen and (min-width: 641px) {
+        app-drawer { display: none; }
+        paper-icon-button[drawer-toggle] { display: none; }
+      }
+    </style>
+
+    <!-- app-location enlaza la URL de la aplicación y nos lleva a ella -->
+    <app-location route="{{route}}"></app-location>
+
+    <!-- app-route administra las rutas -->
+    <app-route route="{{route}}"
+               pattern="/:page"
+               data="{{routeData}}">
+    </app-route>
+
+    <app-drawer-layout force-narrow>
+      <app-drawer id="drawer" slot="drawer">
+        Menú
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <a name="home" href="/home">Inicio</a>
+          <a name="contact" href="/contact">Contacto</a>
+        </iron-selector>
+      </app-drawer>
+
+      <app-header-layout>
+        <app-header slot="header" fixed>
+          <app-toolbar>
+            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <title-app></title-app>
+            <menubar-app page="[[page]]"></menubar-app>
+          </app-toolbar>
+        </app-header>
+      </app-header-layout>
+
+      <!-- iron-pages carga la vista basándose en la ruta activa -->
+      <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+        <home-app name="home"></home-app>
+        <contact-app name="contact"></contact-app>
+      </iron-pages>
+    </app-drawer-layout>
+  </template>
+
+  <script>
+    /**
+      * @polymer
+      * @extends HTMLElement
+    */
+    class MyPersonalWebApp extends Polymer.Element {
+      static get is() { return 'my-personal-web-app'; }
+
+      static get properties() {
+        return {
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged',
+          },
+          routeData: Object
+        };
+      }
+
+      static get observers() {
+        return [
+          '_viewChanged(routeData)'
+        ]
+      }
+
+      _viewChanged(view) {
+        this.page = view.page || 'home';
+      }
+
+      _pageChanged(page) {
+        // Carga la página asignada
+        const resolvedPageUrl = this.resolveUrl(page + '-app.html');
+        Polymer.importHref(
+          resolvedPageUrl,
+          null,
+          null,
+          true);
+      }
+    }
+
+    window.customElements.define(MyPersonalWebApp.is, MyPersonalWebApp);
+  </script>
+</dom-module>

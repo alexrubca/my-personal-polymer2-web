@@ -1,0 +1,75 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="title-app">
+  <template>
+    <style>
+      h1[main-title] {
+        color: var(--primary-color);
+        font-family: 'Sigmar One', cursive;
+        font-size: 50px;
+        margin: 0 0 10px 14px;
+        position: relative;
+        text-shadow: var(--secondary-color) 3px 2px 0;
+      }
+
+      h1[main-title]:after {
+        content: var(--title-app-content);
+        position: absolute;
+        left: 7px;
+        top: 6px;
+      }
+
+      h1[main-title]:after {
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-image: -webkit-linear-gradient(left top, transparent 0%, transparent 25%, var(--primary-color) 25%, var(--primary-color) 50%, transparent 50%, transparent 75%, var(--primary-color) 75%);
+        background-size: 4px 4px;
+        display: block;
+        text-shadow: none;
+        z-index: -1;
+      }
+
+      a { text-decoration: none; }
+
+      a:hover { color: var(--primary-color); }
+
+      a:-webkit-any-link { color: var(--primary-color); }
+    </style>
+
+    <h1 main-title><a href="/home">[[titleLogo]]</a></h1>
+
+  </template>
+
+  <script>
+    /**
+     * `title-app` Componente de visualización del título de la aplicación
+     *
+     * @summary Título de la aplicación.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class TitleApp extends Polymer.Element {
+      static get is() {
+        return 'title-app';
+      }
+
+      static get properties() {
+        return {
+          titleLogo: {
+            type: String,
+            value: 'AlexRubio'
+          }
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        // this.updateStyles({ '--title-app-content': '"' + this.titleLogo + '"' });
+        this.updateStyles({ '--title-app-content': `'${this.titleLogo}'` });
+      }
+    }
+
+    window.customElements.define(TitleApp.is, TitleApp);
+  </script>
+</dom-module>

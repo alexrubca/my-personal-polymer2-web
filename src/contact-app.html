@@ -1,0 +1,53 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="contact-app">
+  <template>
+    <style>
+      :host {
+        display: block
+      }
+    </style>
+
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+    <p>Contact works!</p>
+
+  </template>
+
+  <script>
+    /**
+     * `contact-app` Page where you can contact with the author of the web
+     *
+     * @summary Contact form page.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class ContactApp extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'contact-app';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          
+        };
+      }
+    }
+
+    window.customElements.define(ContactApp.is, ContactApp);
+  </script>
+</dom-module>
