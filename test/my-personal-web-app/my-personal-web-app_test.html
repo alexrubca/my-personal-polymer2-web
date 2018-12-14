@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
@@ -12,7 +12,6 @@
     <link rel="import" href="../../src/my-personal-web-app.html">
   </head>
   <body>
-
     <test-fixture id="BasicTestFixture">
       <template>
         <my-personal-web-app></my-personal-web-app>
@@ -20,18 +19,54 @@
     </test-fixture>
 
     <script>
-      suite('my-personal-web-app', function() {
-        test('instantiating the element with default properties works', function() {
-          let element = fixture('BasicTestFixture');
-          const elementShadowRoot = element.shadowRoot;
-          console.log('element: ', element);
-          assert.equal(element.page, element.routeData, 'my-personal-web-app');
-          var elementHeader = elementShadowRoot.querySelector('h2');
-          assert.equal(elementHeader.innerHTML, 'Hello my-personal-web-app!');
+      suite('tests for my-personal-web-app', () => {
+        setup(() => {
+          element = fixture('BasicTestFixture');
+          elementShadowRoot = element.shadowRoot;
+        });
+
+        test('instantiating the element with default properties works', () => {
+          let routeData = { 'page': 'components' };
+
+          assert.strictEqual(element.page, 'components');
+          assert.deepEqual(element.routeData, routeData);
+        });
+
+        suite('tests for flow routing', () => {
+          setup(() => {
+            spyView = sinon.spy(element, '_viewChanged');
+            spyPage = sinon.spy(element, '_pageChanged');
+          });
+
+          test('should update page to "home"', () => {
+            element.routeData = { page: 'home' };
+            
+            assert.isTrue(spyView.called);
+            spyView.restore();
+            assert.isTrue(spyPage.called);
+            spyPage.restore();
+            assert.strictEqual(element.page, 'home');
+
+            element.routeData = { page: '' };
+
+            assert.isTrue(spyView.called);
+            spyView.restore();
+            assert.isTrue(spyPage.called);
+            spyPage.restore();
+            assert.strictEqual(element.page, 'home');
+          });
+
+          test('should update page to "contact"', () => {
+            element.routeData = { page: 'contact' };
+
+            assert.isTrue(spyView.called);
+            spyView.restore();
+            assert.isTrue(spyPage.called);
+            spyPage.restore();
+            assert.strictEqual(element.page, 'contact');
+          });
         });
       });
     </script>
-
-
   </body>
 </html>
