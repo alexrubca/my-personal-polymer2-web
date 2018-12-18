@@ -3,11 +3,26 @@
 <dom-module id="title-app">
   <template>
     <style>
+      .container {
+        border-radius: 32px;
+        height: var(--title-app-height);
+        overflow: hidden;
+        padding-right: 5px;
+      }
+
+      .title-app {
+        height: calc(var(--title-app-height) + 14px);
+        transition: all .5s;
+        width: calc(100% + 5px);
+      }
+
+      .title-app:hover { background-color: #ffffff65; }
+
       h1[main-title] {
         color: var(--primary-color);
         font-family: 'Sigmar One', cursive;
         font-size: 50px;
-        margin: 0 0 10px 14px;
+        margin: -14px 0 0 0;
         position: relative;
         text-shadow: var(--secondary-color) 3px 2px 0;
       }
@@ -15,7 +30,7 @@
       h1[main-title]:after {
         content: var(--title-app-content);
         position: absolute;
-        left: 7px;
+        left: 10px;
         top: 6px;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -26,14 +41,21 @@
         z-index: -1;
       }
 
-      a { text-decoration: none; }
+      a {
+        padding: 3px;
+        text-decoration: none;
+      }
 
-      a:hover { color: var(--primary-color); }
-
-      a:-webkit-any-link { color: var(--primary-color); }
+      a:visited { color: var(--primary-color); }
     </style>
 
-    <h1 main-title><a href="/home">[[titleLogo]]</a></h1>
+    <div class="container">
+      <div class="title-app">
+        <h1 main-title>
+          <a href="/home">[[titleLogo]]</a>
+        </h1>
+      </div>
+    </div>
 
   </template>
 
