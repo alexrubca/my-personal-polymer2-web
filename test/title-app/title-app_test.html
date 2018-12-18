@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>title-app test</title>
+
+    <script src="../../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../../web-component-tester/browser.js"></script>
+
+    <link rel="import" href="../../src/title-app.html">
+  </head>
+  <body>
+    <test-fixture id="BasicTestFixture">
+      <template>
+        <title-app></title-app>
+      </template>
+    </test-fixture>
+
+    <test-fixture id="PropertyTestFixture">
+      <template>
+        <title-app title-logo="Test"></title-app>
+      </template>
+    </test-fixture>
+
+    <script>
+      suite('tests for title-app', () => {
+        test('instantiating the element with default properties', () => {
+          let element = fixture('BasicTestFixture');
+          let elementShadowRoot = element.shadowRoot;
+
+          assert.strictEqual(element.titleLogo, 'AlexRubio');
+        });
+
+        test('instantiating the element with custom properties', () => {
+          let element = fixture('PropertyTestFixture');
+          let elementShadowRoot = element.shadowRoot;
+
+          assert.strictEqual(element.titleLogo, 'Test');
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -46,12 +46,14 @@
             assert.isTrue(spyPage.called);
             spyPage.restore();
             assert.strictEqual(element.page, 'home');
+          });
 
+          test('should update page to "home" without call _pageChanged', () => {
             element.routeData = { page: '' };
 
             assert.isTrue(spyView.called);
             spyView.restore();
-            assert.isTrue(spyPage.called);
+            assert.isFalse(spyPage.called);
             spyPage.restore();
             assert.strictEqual(element.page, 'home');
           });

@@ -17,9 +17,6 @@
         position: absolute;
         left: 7px;
         top: 6px;
-      }
-
-      h1[main-title]:after {
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-image: -webkit-linear-gradient(left top, transparent 0%, transparent 25%, var(--primary-color) 25%, var(--primary-color) 50%, transparent 50%, transparent 75%, var(--primary-color) 75%);
@@ -65,7 +62,6 @@
 
       connectedCallback() {
         super.connectedCallback();
-        // this.updateStyles({ '--title-app-content': '"' + this.titleLogo + '"' });
         this.updateStyles({ '--title-app-content': `'${this.titleLogo}'` });
       }
     }
