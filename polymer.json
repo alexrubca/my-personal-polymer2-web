@@ -2,11 +2,16 @@
   "entrypoint": "index.html",
   "shell": "src/my-personal-web-app.html",
   "fragments": [
-    "src/home-app.html"
+    "src/contact-app.html",
+    "src/error-app.html"
   ],
   "lint": {
     "rules": [
       "polymer-2"
     ]
-  }
+  },
+  "builds": [
+    { "preset": "es5-bundled" },
+    { "preset": "es6-bundled" }
+  ]
 }

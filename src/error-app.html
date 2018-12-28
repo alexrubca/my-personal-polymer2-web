@@ -1,0 +1,44 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<dom-module id="error-app">
+  <template>
+    <style>
+      :host {
+        display: block
+      }
+    </style>
+
+    <h1>Error [[error]]</h1>
+
+  </template>
+
+  <script>
+    /**
+     * `error-app` Description
+     *
+     * @summary ShortDescription.
+     * @customElement
+     * @polymer
+     * @extends {Polymer.Element}
+     */
+    class ErrorApp extends Polymer.Element {
+      /**
+       * String providing the tag name to register the element under.
+       */
+      static get is() {
+        return 'error-app';
+      }
+
+      /**
+       * Object describing property-related metadata used by Polymer features
+       */
+      static get properties() {
+        return {
+          error: String
+        };
+      }
+    }
+
+    window.customElements.define(ErrorApp.is, ErrorApp);
+  </script>
+</dom-module>
